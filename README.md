@@ -20,11 +20,11 @@ Using this plugin, we will get several versions of our html, divided into separa
 // en
 <div data-i18n="hello">Hello</div>
 
-// ua
-<div data-i18n="hello">Привіт</div>
+// fr
+<div data-i18n="hello">Bonjour</div>
 ```
 
-before
+Before:
 
 ```
 /dist
@@ -32,7 +32,7 @@ before
   contact.html
 ```
 
-after
+After:
 
 ```
 /dist
@@ -131,8 +131,8 @@ translations: {
   en: {
     hello: "Hello",
   },
-  ua: {
-    hello: "Привіт",
+  fr: {
+    hello: "Bonjour",
   }
 }
 ```

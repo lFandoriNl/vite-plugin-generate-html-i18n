@@ -1,5 +1,11 @@
 # vite-plugin-generate-html-i18n
 
+## 1.0.2
+
+### Patch Changes
+
+- Update readme
+
 ## 1.0.1
 
 ### Patch Changes

@@ -23,8 +23,8 @@ export type ViteGenerateHtmlI18nOptions = {
    *   en: {
    *     hello: "Hello",
    *   },
-   *   ua: {
-   *     hello: "Привіт",
+   *   fr: {
+   *     hello: "Bonjour",
    *   }
    * }
    */

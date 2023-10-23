@@ -8,8 +8,8 @@ const enTranslations = {
   keyWithIcon: "With icon - {icon}",
 };
 
-const uaTranslations = {
-  hello: "Привіт",
+const frTranslations = {
+  hello: "Bonjour",
 };
 
 // https://vitejs.dev/config/
@@ -28,7 +28,7 @@ export default defineConfig({
       glob: (outputPath) => `${outputPath}/*.html`,
       translations: {
         en: enTranslations,
-        ua: uaTranslations,
+        fr: frTranslations,
       },
       selector: "[data-i18n]",
       getTranslationKey: (element) => element.getAttribute("data-i18n"),
