@@ -88,6 +88,42 @@ export type ViteGenerateHtmlI18nOptions = {
     }
   ) => void;
 
+  /**
+   * The function to modify the document before the translation is applied, modifyDocumentBefore is called before formatTranslation
+   * @param document - the document
+   * @param meta - the meta object for the translation, including the language and translations object
+   * @example
+   * // Can be used to replace the lang attribute in html
+   * modifyDocumentBefore(document, { language }) {
+   *   document.documentElement.setAttribute("lang", language);
+   * }
+   */
+  modifyDocumentBefore?: (
+    document: Document,
+    meta: {
+      language: string;
+      translations: Record<TranslationKey, string>;
+    }
+  ) => void;
+
+  /**
+   * The function to modify the document after the translation is applied, modifyDocumentAfter is called after formatTranslation
+   * @param document - the document
+   * @param meta - the meta object for the translation, including the language and translations object
+   * @example
+   * // Can be used to replace the lang attribute in html
+   * modifyDocumentAfter(document, { language }) {
+   *   document.documentElement.setAttribute("lang", language);
+   * }
+   */
+  modifyDocumentAfter?: (
+    document: Document,
+    meta: {
+      language: string;
+      translations: Record<TranslationKey, string>;
+    }
+  ) => void;
+
   /** Whether to log verbose messages.
    * @default true
    */
@@ -143,6 +179,8 @@ export function viteGenerateHtmlI18n(
     getTranslationKey,
     modifyElement,
     formatTranslation,
+    modifyDocumentBefore,
+    modifyDocumentAfter,
     verbose = true,
     missingTranslationVerboseFilter = () => true,
   } = options;
@@ -197,6 +235,13 @@ export function viteGenerateHtmlI18n(
 
           const { document } = jsdom.window;
 
+          if (modifyDocumentBefore) {
+            modifyDocumentBefore(document, {
+              language: lang,
+              translations: translations[lang],
+            });
+          }
+
           const elements = document.querySelectorAll(selector);
 
           elements.forEach((element) => {
@@ -238,6 +283,13 @@ export function viteGenerateHtmlI18n(
               }
             }
           });
+
+          if (modifyDocumentAfter) {
+            modifyDocumentAfter(document, {
+              language: lang,
+              translations: translations[lang],
+            });
+          }
 
           return {
             filePath,

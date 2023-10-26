@@ -35,8 +35,11 @@ export default defineConfig({
       formatTranslation(value) {
         return value || "";
       },
-      modifyElement(element, value, { key }) {
+      modifyElement: (element, value, { key }) => {
         element.innerHTML = element.innerHTML.replace("{icon}", "<i>icon</i>");
+      },
+      modifyDocumentAfter: (document, { language }) => {
+        document.documentElement.setAttribute("lang", language);
       },
     }),
   ],

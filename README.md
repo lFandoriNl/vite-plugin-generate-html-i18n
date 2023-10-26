@@ -101,6 +101,8 @@ You can see an example setup on [Github](https://github.com/lFandoriNl/vite-plug
 - **[`getTranslationKey`](#gettranslationkey)**
 - **[`formatTranslation`](#formattranslation)**
 - **[`modifyElement`](#modifyelement)**
+- **[`modifyDocumentBefore`](#modifydocumentbefore)**
+- **[`modifyDocumentAfter`](#modifydocumentafter)**
 - **[`verbose`](#verbose)**
 - **[`missingTranslationVerboseFilter`](#missingtranslationverbosefilter)**
 
@@ -219,6 +221,46 @@ Type:
 The function to modify the translated element, modifyElement is called after formatTranslation.
 
 With this function you can modify your element, add attributes, classes, styles, etc.
+
+### `modifyDocumentBefore`
+
+Type:
+
+```ts
+(
+  document: Document,
+  meta: {
+    language: string;
+    translations: Record<TranslationKey, string>;
+  }
+) => void;
+```
+
+The function to modify the document before the translation is applied, modifyDocumentBefore is called before formatTranslation.
+
+Can be used to replace the lang attribute in html
+
+```ts
+modifyDocumentBefore: (document, { language }) => {
+  document.documentElement.setAttribute("lang", language);
+},
+```
+
+### `modifyDocumentAfter`
+
+Type:
+
+```ts
+(
+  document: Document,
+  meta: {
+    language: string;
+    translations: Record<TranslationKey, string>;
+  }
+) => void;
+```
+
+Similar method to [`modifyDocumentBefore`](#modifydocumentbefore), except that it is called after applying translations
 
 ### `verbose`
 

@@ -1,5 +1,11 @@
 # vite-plugin-generate-html-i18n
 
+## 1.1.0
+
+### Minor Changes
+
+- Add modifyDocumentBefore and modifyDocumentAfter methods
+
 ## 1.0.2
 
 ### Patch Changes
