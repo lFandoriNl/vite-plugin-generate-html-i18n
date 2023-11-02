@@ -45,38 +45,19 @@ export type ViteGenerateHtmlI18nOptions = {
    */
   getTranslationKey: (element: Element) => TranslationKey | null;
 
-  /** The function to format the translation.
-   * @param {string} value - the translation value
-   * @param {object} meta - the meta object for the translation, including the translationKey, language, and translations object
-   * @default
-   * (value) => {
-   *    return value || "";
-   * }
-   */
-  formatTranslation?: (
-    value: string,
-    meta: {
-      key: TranslationKey;
-      language: string;
-      translations: Record<TranslationKey, string>;
-    }
-  ) => HTMLString;
-
-  /** The function to modify the translated element, modifyElement is called after formatTranslation
+  /** The function to modify the translated element, here you configure how to translate the element
    * @param {Element} element - the element to be modified
    * @param {string} value - the translation value
    * @param {object} meta - the meta object for the translation, including the translationKey, language, and translations object
    * @example
+   *
    * // If you have an HTML element structure like this
    * <p data-i18n="key">text</p>
    *
-   * // This function will wrap the translated text in a span element
+   * // This function will write the translated value of the current language to innerHTML
    * modifyElement: (element, value, meta) => {
-   *   element.innerHTML = `<span>${element.textContent}</span>`;
+   *   element.innerHTML = value || "";
    * }
-   *
-   * // The resulting HTML will be
-   * <p data-i18n="key"><span>text</span></p>
    */
   modifyElement?: (
     element: Element,
@@ -89,7 +70,7 @@ export type ViteGenerateHtmlI18nOptions = {
   ) => void;
 
   /**
-   * The function to modify the document before the translation is applied, modifyDocumentBefore is called before formatTranslation
+   * The function to modify the document before the translation is applied, modifyDocumentBefore is called before modifyElement
    * @param document - the document
    * @param meta - the meta object for the translation, including the language and translations object
    * @example
@@ -178,7 +159,6 @@ export function viteGenerateHtmlI18n(
     selector,
     getTranslationKey,
     modifyElement,
-    formatTranslation,
     modifyDocumentBefore,
     modifyDocumentAfter,
     verbose = true,
@@ -264,22 +244,14 @@ export function viteGenerateHtmlI18n(
                 }
               }
 
-              if (formatTranslation) {
-                element.innerHTML = formatTranslation(translations[lang][key], {
-                  key,
-                  language: lang,
-                  translations: translations[lang],
-                });
-              } else {
-                element.innerHTML = translations[lang][key] || "";
-              }
-
               if (modifyElement) {
                 modifyElement(element, translations[lang][key], {
                   key,
                   language: lang,
                   translations: translations[lang],
                 });
+              } else {
+                element.innerHTML = translations[lang][key] || "";
               }
             }
           });

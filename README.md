@@ -99,7 +99,6 @@ You can see an example setup on [Github](https://github.com/lFandoriNl/vite-plug
 - **[`translations`](#translations)**
 - **[`selector`](#selector)**
 - **[`getTranslationKey`](#gettranslationkey)**
-- **[`formatTranslation`](#formattranslation)**
 - **[`modifyElement`](#modifyelement)**
 - **[`modifyDocumentBefore`](#modifydocumentbefore)**
 - **[`modifyDocumentAfter`](#modifydocumentafter)**
@@ -177,31 +176,6 @@ getTranslationKey: (element) => element.getAttribute("data-i18n");
 
 That is, your method of storing a translation key in an element can be anything, even a data-attribute or anything else, all you need is to get this key.
 
-### `formatTranslation`
-
-Type:
-
-```ts
-(
-  value: string, // translation value
-  meta: {
-    key: TranslationKey;
-    language: string;
-    translations: Record<TranslationKey, string>;
-  }
-) => HTMLString;
-```
-
-Default:
-
-```ts
-(value) => {
-  return value || "";
-};
-```
-
-The function to format the translation. The result of this function will be written to the innerHTML of the element
-
 ### `modifyElement`
 
 Type:
@@ -218,9 +192,11 @@ Type:
 ) => void;
 ```
 
-The function to modify the translated element, modifyElement is called after formatTranslation.
+Default: `(element, value) => element.innerHTML = value || ""`
 
-With this function you can modify your element, add attributes, classes, styles, etc.
+The function to modify the translated element, here you configure how to translate the element.
+
+With this function you also can modify your element, add attributes, classes, styles, etc.
 
 ### `modifyDocumentBefore`
 
@@ -236,7 +212,7 @@ Type:
 ) => void;
 ```
 
-The function to modify the document before the translation is applied, modifyDocumentBefore is called before formatTranslation.
+The function to modify the document before the translation is applied, `modifyDocumentBefore` is called before `modifyElement`.
 
 Can be used to replace the lang attribute in html
 
