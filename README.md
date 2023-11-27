@@ -102,6 +102,7 @@ You can see an example setup on [Github](https://github.com/lFandoriNl/vite-plug
 - **[`modifyElement`](#modifyelement)**
 - **[`modifyDocumentBefore`](#modifydocumentbefore)**
 - **[`modifyDocumentAfter`](#modifydocumentafter)**
+- **[`deleteSourceHtmlFiles`](#deletesourcehtmlfiles)**
 - **[`verbose`](#verbose)**
 - **[`missingTranslationVerboseFilter`](#missingtranslationverbosefilter)**
 
