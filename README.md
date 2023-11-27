@@ -238,6 +238,14 @@ Type:
 
 Similar method to [`modifyDocumentBefore`](#modifydocumentbefore), except that it is called after applying translations
 
+### `deleteSourceHtmlFiles`
+
+Type: `boolean`
+
+Default: `false`
+
+Delete source files, these are the files that are returned from the glob result.
+
 ### `verbose`
 
 Type: `boolean`

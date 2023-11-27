@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, mkdirSync } from "fs";
+import { readFileSync, writeFileSync, unlinkSync, mkdirSync } from "fs";
 import path from "path";
 
 import { globSync } from "glob";
@@ -105,6 +105,11 @@ export type ViteGenerateHtmlI18nOptions = {
     }
   ) => void;
 
+  /** Delete source files, these are the files that are returned from the glob result
+   * @default false
+   */
+  deleteSourceHtmlFiles?: boolean;
+
   /** Whether to log verbose messages.
    * @default true
    */
@@ -161,6 +166,7 @@ export function viteGenerateHtmlI18n(
     modifyElement,
     modifyDocumentBefore,
     modifyDocumentAfter,
+    deleteSourceHtmlFiles = false,
     verbose = true,
     missingTranslationVerboseFilter = () => true,
   } = options;
@@ -293,6 +299,12 @@ export function viteGenerateHtmlI18n(
           )}`
         );
       });
+
+      if (deleteSourceHtmlFiles) {
+        htmlFilePaths.forEach((filePath) => {
+          unlinkSync(filePath);
+        });
+      }
     },
   };
 }

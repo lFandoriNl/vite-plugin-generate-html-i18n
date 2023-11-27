@@ -1,5 +1,11 @@
 # vite-plugin-generate-html-i18n
 
+## 2.1.0
+
+### Minor Changes
+
+- Add deleteSourceHtmlFiles option
+
 ## 2.0.0
 
 ### Major Changes

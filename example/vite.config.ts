@@ -38,6 +38,7 @@ export default defineConfig({
       modifyDocumentAfter: (document, { language }) => {
         document.documentElement.setAttribute("lang", language);
       },
+      deleteSourceHtmlFiles: true,
     }),
   ],
 });
